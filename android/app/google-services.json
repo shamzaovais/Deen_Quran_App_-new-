@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "235733590255",
+    "project_id": "ummy3-2bbfa",
+    "storage_bucket": "ummy3-2bbfa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235733590255:android:00676caca3760f0891bb1a",
+        "android_client_info": {
+          "package_name": "com.example.deen_quran"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE7YmtMXSZNJusAAJRXT9AYkr87tQTuvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

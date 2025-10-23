@@ -1,96 +1,164 @@
-import 'package:deen_quran/views/auth/OTP_screen.dart';
 import 'package:flutter/material.dart';
-import '../../core/constants/app_colors.dart';
-import 'Widgets/Textfield_Widget.dart';
+import 'package:deen_quran/routes/names.dart';
+import '../auth/widgets/Textfield_Widget.dart';
 
-class ForgetPasswordScreen extends StatelessWidget {
-  const ForgetPasswordScreen({super.key});
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isSmallScreen = screenWidth < 400;
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
+    TextEditingController emailController = TextEditingController();
+
+    // Dynamic padding + font sizing
+    double horizontalPadding = screenWidth * 0.05;
+    double verticalPadding = screenHeight * 0.03;
+    double titleFont = screenWidth * 0.065;
+    double subtitleFont = screenWidth * 0.035;
+    double buttonFont = screenWidth * 0.045;
 
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 20 : 40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: double.infinity,
-                constraints: const BoxConstraints(maxHeight: 100),
-                child: Image.asset(
-                  'assets/masjid.jpg',
-                  fit: BoxFit.contain,
-                ),
-              ),
-              SizedBox(height: isSmallScreen ? 30 : 50),
-              Text(
-                'Forgot Password?',
-                style: TextStyle(
-                  fontSize: isSmallScreen ? 22 : 26,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              SizedBox(height: isSmallScreen ? 8 : 12),
-              Text(
-                'Enter your email to reset your password',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: isSmallScreen ? 14 : 16,
-                ),
-              ),
-              SizedBox(height: isSmallScreen ? 25 : 35),
-              customTextField(
-                labelText: 'Email',
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                prefixIcon: Icon(Icons.email_outlined, color: AppColors.iconColor),
-              ),
-              SizedBox(height: isSmallScreen ? 25 : 40),
-              SizedBox(
-                width: double.infinity,
-                height: isSmallScreen ? 45 : 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.iconColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> OTPScreen(isFromSignup: false)));
-                  },
-                  child: Text(
-                    'Send code',
-                    style: TextStyle(
-                      fontSize: isSmallScreen ? 15 : 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black54,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: isSmallScreen ? 25 : 35),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  'Back to Sign In',
-                  style: TextStyle(
-                    color: AppColors.iconColor,
-                    fontSize: isSmallScreen ? 15 : 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF0A1931),
+              Color(0xFF185ADB),
             ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding,
+              vertical: verticalPadding,
+            ),
+            child: Container(
+              width: screenWidth < 500 ? screenWidth * 0.95 : 450,
+              padding: EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.06,
+                vertical: screenHeight * 0.04,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(28),
+                border: Border.all(color: Colors.white.withOpacity(0.2)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Back Button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back_ios_new,
+                            size: 20, color: Colors.white),
+                        onPressed: () {
+                          Navigator.pushNamed(context, RoutesName.login);
+                        },
+                      ),
+                      const Icon(Icons.lock_reset_outlined,
+                          color: Colors.white),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+
+                  // Title
+                  Text(
+                    "Forgot Password 🔑",
+                    style: TextStyle(
+                      fontSize: titleFont,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.01),
+                  Text(
+                    "Enter your registered email below to receive password reset instructions.",
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.7),
+                      fontSize: subtitleFont,
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.04),
+
+                  // Email TextField
+                  CustomTextField(
+                    labelText: 'Email Address',
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    prefixIcon: const Icon(Icons.email_outlined,
+                        color: Colors.white70),
+                  ),
+                  SizedBox(height: screenHeight * 0.04),
+
+                  // Reset Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: screenHeight * 0.065,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF185ADB),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        shadowColor: Colors.blueAccent.withOpacity(0.4),
+                        elevation: 6,
+                      ),
+                      onPressed: () {
+
+                        Navigator.pushNamed(
+                          context,
+                          RoutesName.otp,
+                          arguments: {'fromCreateAccount': false},
+                        );
+                      },
+                      child: Text(
+                        "Send OTP",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: buttonFont,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.04),
+
+                  // Back to Login
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutesName.login);
+                      },
+                      child: Text(
+                        "Back to Login",
+                        style: TextStyle(
+                          color: const Color(0xFF00CFFF),
+                          fontWeight: FontWeight.bold,
+                          fontSize: subtitleFont,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

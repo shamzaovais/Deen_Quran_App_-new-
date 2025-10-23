@@ -35,7 +35,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   another_flushbar: ^1.12.32
-
+  firebase_core: ^4.2.0
+  firebase_auth: ^6.1.1
+  cloud_firestore: ^6.0.3
+  provider: ^6.1.5+1
+  flutter_compass: ^0.8.1
+  carousel_slider: ^5.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

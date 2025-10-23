@@ -22,4 +22,13 @@ class AppColors {
   static const Color duaQsaColor = Color(0xFFB3E5FC);
   static const Color booksColor = Color(0xFFC8E6C9);
   static const Color donateColor = Color(0xFFFFCCBC);
+
+  static const deepNavyBlue = Color(0xFF0A1931);
+  static const primaryBlue = Color(0xFF185ADB);
+  static const lightBlue = Color(0xFF4A90E2);
+  static const cream = Color(0xFFFFF8E7);
+  static const orange = Color(0xFFFF9F43);
+  static const purple = Color(0xFF9B59B6);
+  static const green = Color(0xFF27AE60);
+  static const red = Color(0xFFE74C3C);
 }

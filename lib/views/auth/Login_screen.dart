@@ -1,156 +1,260 @@
-import 'package:deen_quran/views/auth/Create_account_screen.dart';
-import 'package:deen_quran/views/home/home_screen.dart';
+import 'package:deen_quran/views/common/social.dart';
 import 'package:flutter/material.dart';
-import '../../core/constants/app_colors.dart';
-import 'Forget_screen.dart';
+import 'package:provider/provider.dart';
+import '../../viewmodels/Provider/auth/LoginViewModel.dart';
 import 'Widgets/Textfield_Widget.dart';
-import 'Widgets/social_Widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
 
-    TextEditingController emailController= TextEditingController();
-    TextEditingController passwordController= TextEditingController();
+    double titleFont = width * 0.075;
+    double subtitleFont = width * 0.035;
+    double buttonFont = width * 0.045;
 
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: double.infinity,
-                constraints: BoxConstraints(
-                  maxWidth: double.infinity,
-                  maxHeight: 100,
-                ),
-                child: Image.asset(
-                  'assets/masjid.jpg',
-                  fit: BoxFit.contain,
-                ),
+      resizeToAvoidBottomInset: false, // prevent lag when keyboard opens
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF0A1931),
+          Color(0xFF185ADB),],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              horizontal: width * 0.05,
+              vertical: height * 0.03,
+            ),
+            child: Container(
+              width: width < 500 ? width * 0.95 : 450,
+              padding: EdgeInsets.symmetric(
+                horizontal: width * 0.06,
+                vertical: height * 0.04,
               ),
-              const SizedBox(height: 40),
-              customTextField(
-                labelText: 'Email',
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                prefixIcon: Icon(Icons.email_outlined, color: AppColors.iconColor),
-              ),
-              const SizedBox(height: 16),
-
-              customTextField(
-                labelText: 'Password',
-                controller: passwordController,
-                obscureText: true,
-                prefixIcon: Icon(Icons.lock_outline, color: AppColors.iconColor),
-              ),
-              const SizedBox(height: 10),
-
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgetPasswordScreen()));
-                  },
-                  child: const Text(
-                    'Forgot your password?',
-                    style: TextStyle(
-                      color: AppColors.iconColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:AppColors.iconColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
-                    },
-                    child: const Text(
-                      'Sign in',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black54),
-                    ),
-
-                  ),
-                ),
-              ),
-               SizedBox(height: 7),
-
-              Padding(
-                padding:  EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.black12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateAccountScreen()));
-                    },
-                    child: const Text(
-                      'Create new account',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black87),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 56.95,
-              ),
-              Text(
-                'Or continue with',
-                style: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: 14,
-                ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  socialButton(
-                    icon: Icons.g_mobiledata,
-                    color: AppColors.iconColor,
-                    onTap: () => print('Google clicked'),
-                  ),
-                  SizedBox(width: 16),
-                  socialButton(
-                    icon: Icons.facebook,
-                    color: AppColors.iconColor,
-                    onTap: () => print('Facebook clicked'),
-                  ),
-                  SizedBox(width: 16),
-                  socialButton(
-                    icon: Icons.apple,
-                    color: AppColors.iconColor,
-                    onTap: () => print('Apple clicked'),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(28),
+                border: Border.all(color: Colors.white.withOpacity(0.2)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: const Offset(0, 6),
                   ),
                 ],
               ),
-            ],
+              child: Consumer<LoginViewModel>(
+                builder: (context, loginVM, child) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Back button + Icon
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back_ios_new,
+                              size: 20, color: Colors.white),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        const Icon(Icons.lock_outline, color: Colors.white),
+                      ],
+                    ),
+                    SizedBox(height: height * 0.02),
+
+                    Text(
+                      "Welcome Back 👋",
+                      style: TextStyle(
+                        fontSize: titleFont,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      "To Deen App",
+                      style: TextStyle(
+                        fontSize: titleFont,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: height * 0.01),
+                    Text(
+                      "Please enter your email and password to continue",
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: subtitleFont,
+                      ),
+                    ),
+                    SizedBox(height: height * 0.04),
+
+                    // Email Field
+                    CustomTextField(
+                      labelText: 'Email',
+                      controller: loginVM.emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: const Icon(Icons.email_outlined,
+                          color: Colors.white70),
+                    ),
+                    SizedBox(height: height * 0.02),
+
+                    // Password Field
+                    CustomTextField(
+                      labelText: 'Password',
+                      controller: loginVM.passwordController,
+                      prefixIcon: const Icon(Icons.lock_outline,
+                          color: Colors.white70),
+                    ),
+                    SizedBox(height: height * 0.015),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: false,
+                              onChanged: (_) {},
+                              activeColor: const Color(0xFF185ADB),
+                              checkColor: Colors.white,
+                            ),
+                            const Text(
+                              "Remember me",
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                          ],
+                        ),
+                        TextButton(
+                          onPressed: () => loginVM.goToForgetPassword(context),
+                          child: const Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                                color: Colors.white70, fontSize: 14),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: height * 0.02),
+
+                    // Login Button
+                    SizedBox(
+                      width: double.infinity,
+                      height: height * 0.065,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF185ADB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                        onPressed: loginVM.isLoading
+                            ? null
+                            : () => loginVM.login(context),
+                        child: loginVM.isLoading
+                            ? const CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                            : Text(
+                          "Login with Email",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: buttonFont,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: height * 0.03),
+
+                    // Divider
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Divider(
+                                color: Colors.white.withOpacity(0.3),
+                                thickness: 1)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
+                            "Or login with",
+                            style: TextStyle(
+                                color: Colors.white.withOpacity(0.6),
+                                fontSize: subtitleFont),
+                          ),
+                        ),
+                        Expanded(
+                            child: Divider(
+                                color: Colors.white.withOpacity(0.3),
+                                thickness: 1)),
+                      ],
+                    ),
+                    SizedBox(height: height * 0.03),
+
+                    // Social Buttons
+                    Column(
+                      children: [
+                        SocialButton(
+                          text: "Login with Google",
+                          icon: Icons.g_mobiledata,
+                          color: Colors.white,
+                          textColor: Colors.black87,
+                          borderColor: Colors.grey.shade400,
+                          onTap: () {},
+                        ),
+                        SizedBox(height: height * 0.02),
+                        SocialButton(
+                          text: "Login with Apple",
+                          icon: Icons.apple,
+                          color: Colors.black,
+                          textColor: Colors.white,
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: height * 0.01),
+
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don’t have an account? ",
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: subtitleFont,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () =>
+                                loginVM.goToCreateAccount(context),
+                            child: Text(
+                              "Register",
+                              style: TextStyle(
+                                color: const Color(0xFF00CFFF),
+                                fontWeight: FontWeight.bold,
+                                fontSize: subtitleFont,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),
