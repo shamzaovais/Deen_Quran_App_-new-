@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:deen_quran/views/auth/Login_screen.dart';
 import 'package:deen_quran/views/common/social.dart';
 import 'Widgets/Textfield_Widget.dart';
-import 'login_screen.dart' show LoginScreen;
+import 'Login_screen.dart' show LoginScreen;
 
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});

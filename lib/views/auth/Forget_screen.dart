@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:deen_quran/routes/names.dart';
-import '../auth/widgets/Textfield_Widget.dart';
+import '../auth/Widgets/Textfield_Widget.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
@@ -26,10 +26,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF0A1931),
-              Color(0xFF185ADB),
-            ],
+            colors: [Color(0xFF0A1931), Color(0xFF185ADB)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -66,14 +63,19 @@ class ForgotPasswordScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back_ios_new,
-                            size: 20, color: Colors.white),
+                        icon: const Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 20,
+                          color: Colors.white,
+                        ),
                         onPressed: () {
                           Navigator.pushNamed(context, RoutesName.login);
                         },
                       ),
-                      const Icon(Icons.lock_reset_outlined,
-                          color: Colors.white),
+                      const Icon(
+                        Icons.lock_reset_outlined,
+                        color: Colors.white,
+                      ),
                     ],
                   ),
                   SizedBox(height: screenHeight * 0.02),
@@ -102,8 +104,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                     labelText: 'Email Address',
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    prefixIcon: const Icon(Icons.email_outlined,
-                        color: Colors.white70),
+                    prefixIcon: const Icon(
+                      Icons.email_outlined,
+                      color: Colors.white70,
+                    ),
                   ),
                   SizedBox(height: screenHeight * 0.04),
 
@@ -121,7 +125,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                         elevation: 6,
                       ),
                       onPressed: () {
-
                         Navigator.pushNamed(
                           context,
                           RoutesName.otp,

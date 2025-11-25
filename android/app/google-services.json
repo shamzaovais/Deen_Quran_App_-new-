@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "235733590255",
-    "project_id": "ummy3-2bbfa",
-    "storage_bucket": "ummy3-2bbfa.firebasestorage.app"
+    "project_number": "402149416541",
+    "project_id": "deen-quran-app",
+    "storage_bucket": "deen-quran-app.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:235733590255:android:00676caca3760f0891bb1a",
+        "mobilesdk_app_id": "1:402149416541:android:15c85dc603282426a437b4",
         "android_client_info": {
           "package_name": "com.example.deen_quran"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBE7YmtMXSZNJusAAJRXT9AYkr87tQTuvE"
+          "current_key": "AIzaSyDElTQpu2inzbe6kcTpAENYBP6SVByAFUc"
         }
       ],
       "services": {

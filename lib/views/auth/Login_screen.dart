@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../viewmodels/Provider/auth/LoginViewModel.dart';
 import 'Widgets/Textfield_Widget.dart';
+import '../../routes/names.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -210,7 +211,18 @@ class LoginScreen extends StatelessWidget {
                           color: Colors.white,
                           textColor: Colors.black87,
                           borderColor: Colors.grey.shade400,
-                          onTap: () {},
+                          onTap: () async {
+                            final loginVM = context.read<LoginViewModel>();
+                            
+                            // Start Google Sigin 
+                            await loginVM.signInWithGoogle(context);
+
+                            //If successful, navigate to home
+                            if (loginVM.user != null) {
+                              Navigator.pushReplacementNamed(
+                                  context, RoutesName.home);
+                            }
+                          },
                         ),
                         SizedBox(height: height * 0.02),
                         SocialButton(
